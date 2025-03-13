@@ -39,12 +39,16 @@ app.set('views', path.join(__dirname, 'views'));
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ✅ Add this line to parse form data
+app.use(express.urlencoded({ extended: true }));
+
 // Import routes
 const aboutRoute = require('./routes/about');
 const contactRoute = require('./routes/contact');
 const homeRoute = require('./routes/home');
 const indexRoute = require('./routes/index');
 const projectsRoute = require('./routes/projects');
+const enquiryRoute = require('./routes/enquiry');
 
 // Define routes
 app.use('/about', aboutRoute);
@@ -52,7 +56,7 @@ app.use('/contact', contactRoute);
 app.use('/home', homeRoute);
 app.use('/index', indexRoute);
 app.use('/projects', projectsRoute);
-
+app.use('/enquiry', enquiryRoute); 
 // Home route
 app.get('/', (req, res) => {
     res.render('home', { title: 'Home - Solar Company' });

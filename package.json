@@ -13,5 +13,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hvaibhav21/mynodeproject.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hvaibhav21/mynodeproject/issues"
+  },
+  "homepage": "https://github.com/Hvaibhav21/mynodeproject#readme",
   "description": ""
 }
