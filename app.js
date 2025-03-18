@@ -1,62 +1,45 @@
-//const express = require('express');
-//const path = require('path');
-
-//const app = express();
-//const PORT = process.env.PORT || 3000;
-
-//// Set EJS as the templating engine
-//app.set('view engine', 'ejs');
-//app.set('views', path.join(__dirname, 'views'));
-
-//// Serve static files
-//app.use(express.static(path.join(__dirname, 'public')));
-
-//const homeRoute = require('./routes/home');
-//const aboutRoute = require('./routes/about');
-//const projectsRoute = require('./routes/projects');
-//const contactRoute = require('./routes/contact');
-
-//app.use('/', homeRoute);
-//app.use('/about', aboutRoute);
-//app.use('/projects', projectsRoute);
-//app.use('/contact', contactRoute);
-
-//app.listen(PORT, () => {
-//    console.log(`Server is running at http://localhost:${PORT}`);
-//});
-
-//module.exports = app;
 
 const express = require('express');
 const path = require('path');
+const cors = require("cors");
 
 const app = express();
 
-// Set up EJS as the templating engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+// Allow requests from frontend (update the URL when deployed)
+app.use(cors({ origin: "http://localhost:3001" })); // Change this when deploying
 
-// Middleware to serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve React build only in production
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "client/build")));
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "client/build", "index.html"));
+    });
+}
 
 // Import routes
-const aboutRoute = require('./routes/about');
-const contactRoute = require('./routes/contact');
-const homeRoute = require('./routes/home');
-const indexRoute = require('./routes/index');
-const projectsRoute = require('./routes/projects');
+//const aboutRoute = require('./routes/about');
+//const contactRoute = require('./routes/contact');
+//const homeRoute = require('./routes/home');
+//const indexRoute = require('./routes/index');
+//const projectsRoute = require('./routes/projects');
 
-// Define routes
-app.use('/about', aboutRoute);
-app.use('/contact', contactRoute);
-app.use('/home', homeRoute);
-app.use('/index', indexRoute);
-app.use('/projects', projectsRoute);
+// API routes
+app.use("/api/about", require("./routes/about"));
+app.use("/api/contact", require("./routes/contact"));
+app.use("/api/projects", require("./routes/projects"));
 
-// Home route
-app.get('/', (req, res) => {
-    res.render('home', { title: 'Home - Solar Company' });
+app.get("/", (req, res) => {
+    res.send("Welcome to the Solar Company API!");
 });
+
+app.get("/api/data", (req, res) => {
+    res.json({
+        company: "Solar Energy Solutions",
+        services: ["Solar Panel Installation", "Maintenance", "Consulting"],
+        location: "New York, USA"
+    });
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
