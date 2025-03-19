@@ -1,9 +1,12 @@
-// JavaScript source code
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.render('contact', { title: 'Contact Us - Solar Company' });
+router.get("/", (req, res) => {
+    res.json({
+        email: "contact@solarcompany.com",
+        phone: "+1 234 567 890",
+        address: "123 Solar Street, Sun City, USA"
+    });
 });
 
 module.exports = router;

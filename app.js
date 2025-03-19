@@ -28,16 +28,15 @@ app.use(express.urlencoded({ extended: true }));
 
 const homeRoute = require('./routes/home');
 const indexRoute = require('./routes/index');
-const enquiryRoute = require('./routes/enquiry');
 
 // API routes
 app.use("/api/about", require("./routes/about"));
 app.use("/api/contact", require("./routes/contact"));
 app.use("/api/projects", require("./routes/projects"));
 
-app.use('/enquiry', enquiryRoute);
-app.use('/home', homeRoute);
-app.use('/index', indexRoute);
+app.use('/api/enquiry', require('./routes/enquiry'));
+app.use('/api/home', homeRoute);
+app.use('/api/index', indexRoute);
 
 
 app.get("/", (req, res) => {
