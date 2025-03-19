@@ -16,6 +16,9 @@ if (process.env.NODE_ENV === "production") {
     });
 }
 
+// ✅ Add this line to parse form data
+app.use(express.urlencoded({ extended: true }));
+
 // Import routes
 //const aboutRoute = require('./routes/about');
 //const contactRoute = require('./routes/contact');
@@ -23,10 +26,19 @@ if (process.env.NODE_ENV === "production") {
 //const indexRoute = require('./routes/index');
 //const projectsRoute = require('./routes/projects');
 
+const homeRoute = require('./routes/home');
+const indexRoute = require('./routes/index');
+const enquiryRoute = require('./routes/enquiry');
+
 // API routes
 app.use("/api/about", require("./routes/about"));
 app.use("/api/contact", require("./routes/contact"));
 app.use("/api/projects", require("./routes/projects"));
+
+app.use('/enquiry', enquiryRoute);
+app.use('/home', homeRoute);
+app.use('/index', indexRoute);
+
 
 app.get("/", (req, res) => {
     res.send("Welcome to the Solar Company API!");
