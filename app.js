@@ -19,24 +19,14 @@ if (process.env.NODE_ENV === "production") {
 // ✅ Add this line to parse form data
 app.use(express.urlencoded({ extended: true }));
 
-// Import routes
-//const aboutRoute = require('./routes/about');
-//const contactRoute = require('./routes/contact');
-//const homeRoute = require('./routes/home');
-//const indexRoute = require('./routes/index');
-//const projectsRoute = require('./routes/projects');
-
-const homeRoute = require('./routes/home');
-const indexRoute = require('./routes/index');
-
 // API routes
 app.use("/api/about", require("./routes/about"));
 app.use("/api/contact", require("./routes/contact"));
 app.use("/api/projects", require("./routes/projects"));
 
 app.use('/api/enquiry', require('./routes/enquiry'));
-app.use('/api/home', homeRoute);
-app.use('/api/index', indexRoute);
+app.use('/api/home', require('./routes/home'));
+app.use('/api/index', require('./routes/index'));
 
 
 app.get("/", (req, res) => {
