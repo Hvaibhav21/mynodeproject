@@ -26,12 +26,12 @@ if (process.env.NODE_ENV === "production") {
 app.use(express.urlencoded({ extended: true }));
 
 // API routes
-app.use("/api/about", require("./routes/about"));
-app.use("/api/contact", require("./routes/contact"));
-app.use("/api/projects", require("./routes/projects"));
-app.use('/api/enquiry', require('./routes/enquiry'));
-app.use('/api/home', require('./routes/home'));
-app.use('/api/index', require('./routes/index'));
+app.use("/api/about", require("../routes/about"));
+app.use("/api/contact", require("../routes/contact"));
+app.use("/api/projects", require("../routes/projects"));
+app.use('/api/enquiry', require('../routes/enquiry'));
+app.use('/api/home', require('../routes/home'));
+app.use('/api/index', require('./index'));
 
 
 app.get("/", (req, res) => {
@@ -46,6 +46,13 @@ app.get("/api/data", (req, res) => {
     });
 });
 
+// ✅ Add this ONLY for local development
+if (require.main === module) {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running on http://localhost:${PORT}`);
+    });
+}
 
 // ✅ Remove `app.listen()` - Vercel does this automatically
 module.exports = app;
