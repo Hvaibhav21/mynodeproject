@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
-    "\\public\\css",
-    "\\routes",
-    "\\views"
+    "\\api",
+    "\\data",
+    "\\routes"
   ],
   "PreviewInSolutionExplorer": false
 }

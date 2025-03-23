@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node api/app.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run start\" \"npm run client\""
+    "dev": "nodemon api/app.js"
   },
   "dependencies": {
-    "cors": "^2.8.5",
     "concurrently": "^9.1.2",
+    "cors": "^2.8.5",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "path": "^0.12.7",
