@@ -4,9 +4,15 @@ const path = require('path');
 const cors = require("cors");
 
 const app = express();
+app.use(cors());
 
 // Allow requests from frontend (update the URL when deployed)
-app.use(cors({ origin: "http://localhost:3001" })); // Change this when deploying
+//app.use(cors({ origin: "http://localhost:3001" })); // Change this when deploying
+
+
+// Middleware for parsing form data
+app.use(express.urlencoded({ extended: true }));
+
 
 // Serve React build only in production
 if (process.env.NODE_ENV === "production") {
@@ -23,7 +29,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/about", require("./routes/about"));
 app.use("/api/contact", require("./routes/contact"));
 app.use("/api/projects", require("./routes/projects"));
-
 app.use('/api/enquiry', require('./routes/enquiry'));
 app.use('/api/home', require('./routes/home'));
 app.use('/api/index', require('./routes/index'));
@@ -42,9 +47,5 @@ app.get("/api/data", (req, res) => {
 });
 
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
-
+// ✅ Remove `app.listen()` - Vercel does this automatically
+module.exports = app;
